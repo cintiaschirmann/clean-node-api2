@@ -8,5 +8,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@types/node": "^24.10.4",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "eslint-config-love": "^140.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7"
+  }
 }
