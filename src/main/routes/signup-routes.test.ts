@@ -1,15 +1,29 @@
 import request from "supertest";
 import app from "../config/app";
+import { MongoHelper } from "../../infra/db/mongodb/helpers/mongo-helper";
 
 describe("Signup Routes", () => {
+  beforeAll(async () => {
+    await MongoHelper.connect(process.env.MONGO_URL);
+  });
+
+  afterAll(async () => {
+    await MongoHelper.disconnect();
+  });
+
+  beforeEach(async () => {
+    const accountCollection = MongoHelper.getCollection("accounts");
+    await accountCollection.deleteMany({});
+  });
+
   test("Should return an acccount on sucess", async () => {
     await request(app)
       .post("/api/signup")
       .send({
-        name: "John Doe",
-        email: "john.doe@example.com",
-        password: "password123",
-        passwordConfirmation: "password123",
+        name: "Cintia Schirmann",
+        email: "cintia.schirmann@gmail.com",
+        password: "123",
+        passwordConfirmation: "123",
       })
       .expect(200);
   });
