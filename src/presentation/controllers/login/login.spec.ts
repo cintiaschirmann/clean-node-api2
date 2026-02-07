@@ -3,7 +3,7 @@ import { badRequest } from "../../helpers/https-helper";
 import { LoginController } from "./login";
 
 describe("LoginController", () => {
-  it("should return 400 if no email is provided", async () => {
+  test("should return 400 if no email is provided", async () => {
     const sut = new LoginController();
     const httpRequest = {
       body: {
@@ -12,5 +12,16 @@ describe("LoginController", () => {
     };
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(badRequest(new MissingParamError("email")));
+  });
+
+  test("should return 400 if no password is provided", async () => {
+    const sut = new LoginController();
+    const httpRequest = {
+      body: {
+        email: "any_email@email.com",
+      },
+    };
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(badRequest(new MissingParamError("password")));
   });
 });
